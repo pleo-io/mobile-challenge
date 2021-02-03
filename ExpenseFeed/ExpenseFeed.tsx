@@ -1,5 +1,7 @@
 import React, {FC} from 'react'
 import {View, StyleSheet, Text, Button} from 'react-native'
+import {Navigation} from 'react-native-navigation'
+import {Screen} from './index'
 
 const styles = StyleSheet.create({
     container: {
@@ -9,11 +11,19 @@ const styles = StyleSheet.create({
     },
 })
 
-const ExpenseFeed: FC<{}> = () => {
+const ExpenseFeed: FC<{componentId: string}> = ({componentId}) => {
+    const showDetail = () => {
+        Navigation.push(componentId, {
+            component: {
+                name: Screen.ExpenseDetail,
+            },
+        })
+    }
+
     return (
         <View style={styles.container}>
-            <Text>Hello</Text>
-            <Button title={'push'} onPress={() => console.log('press')} />
+            <Text>Expense feed</Text>
+            <Button title={'Show detail view'} onPress={showDetail} />
         </View>
     )
 }
