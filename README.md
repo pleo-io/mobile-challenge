@@ -41,7 +41,8 @@ We've also added a few styling contants that we use in Pleo (see [`/style`](http
 Here's few suggestion, or go crazy and implement what you think will impress us:
 - Implement solution with a state management library (Redux, Mobx, VueX, Graphql, ...)
 - Localization: support for multiple languages (English, French, ...)
+- Support dark mode
 - Implement either the expense list or detail view as a Native view with Kotlin and/or Swift. Show us how you would handle communication/navigation/state management between the realms (React Native <-> Native)  
-- CI/CD (Travis/GH Actions/Fastlane/...)
+- Explain how you would setup CI/CD (Travis/GH Actions/Fastlane/...)
 - Add a Share Extension that allows the user to add a receipt to an expense from the photos app.
 - Add test coverage (e2e/UI test/unit test)
