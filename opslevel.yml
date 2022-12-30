@@ -1,22 +1,15 @@
----
 version: 1
 service:
     name: Mobile Challenge
-    lifecycle:
-    tier:
-    product:
+    description: Pleo's mobile challenge
     owner: mobile_core
     language: TypeScript
-    framework:
-    description: Pleo's mobile challenge
     aliases:
         - mobile-challenge
     tags:
         - key: type
-          value: application
+          value: hiring-challenge
     repositories:
         - name: pleo-io/mobile-challenge
           path: "/"
           provider: github
-    tools:
-    dependencies:
