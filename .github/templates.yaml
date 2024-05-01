@@ -1,0 +1,10 @@
+version: v34.4.60
+
+files:
+  - .github/workflows/codeql-analysis.yaml
+  - .github/workflows/close-stale-prs.yaml
+  - .github/workflows/pr-help.yaml
+
+values:
+  autoApproveRenovatePrs: true
+  allowKodiakAutoMerge: true
