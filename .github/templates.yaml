@@ -1,4 +1,4 @@
-version: v34.4.60
+version: v34.4.61
 
 files:
   - .github/workflows/codeql-analysis.yaml
@@ -8,3 +8,4 @@ files:
 values:
   autoApproveRenovatePrs: true
   allowKodiakAutoMerge: true
+  runWizCliDepsScan: false
