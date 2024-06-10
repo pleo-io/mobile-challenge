@@ -2,7 +2,7 @@ version: 1
 service:
     name: Mobile Challenge
     description: Pleo's mobile challenge
-    owner: mobile_core
+    owner: team-mobile-core
     language: TypeScript
     aliases:
         - mobile-challenge
