@@ -8,4 +8,4 @@ files:
 
 values:
   runWizCliDepsScan: false
-  renovateCronjobSchedule: "40 7 * * 1-5" # This is UTC -> At 08:40 CET / 09:40 CEST on every day-of-week from Monday through Friday.
+  renovateCronjobSchedule: "40 11 * * 1-5" # This is UTC -> At 12:40 CET / 13:40 CEST on every day-of-week from Monday through Friday.
