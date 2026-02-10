@@ -1,7 +1,7 @@
 ---
 # (required) Owner must map to a valid automated-teams team name, which should be a child team of https://github.com/orgs/pleo-io/teams/automated-teams
 # The team name must not include the `pleo-io/` prefix
-steward: team-mobile-core
+steward: team-mobile-experience
 
 # (optional) Add your slack channel name in case it doesn't have the format "<<team-name>>-public" like for example "team-devx-public
 # slack_channel: dummy-channel
