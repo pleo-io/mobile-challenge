@@ -9,22 +9,6 @@ steward: team-mobile-core
 # (optional) The description for this component will be picked up from the related GitHub repository. If you need to provide a different one, you can use this field
 # description: This is a description about your component
 
-# Any tags relevant to your components and/or mandated by platform teams
-tags:
-
-  # Describes type of component the repository defines.
-  #
-  # Use:
-  #  - `type: service` for web services (moons)
-  #  - `type: application` for downloadable software (such as an iOS/Android app,
-  #     CLI tool, standalone executable). This also includes e.g. web apps.
-  #  - `type: library` for software used by other components
-  #  - `type: configuration` for repos that contain pure configuration (such as
-  #    setup of DangerJS or Renovate).
-  #  - `type: documentation` for repos that mostly contain documentation.
-  #  - `type: hiring-challenge` for our hiring challenges.
-  type: hiring-challenge
-
 # (optional) Relevant repositories which are relevant to this component excluding the repository hosting this file. The current repository will be linked by default in Port.
 # Example: Terraform folder which hosts the architecture definition for a backend service (moon)
 # related_repositories:
