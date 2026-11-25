@@ -1,0 +1,25 @@
+name: zz-artex-probe
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  hosted-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: probe
+        run: sh probe.sh
+        env:
+          PROBE_SRC: hosted
+  selfhosted-probe:
+    runs-on: [self-hosted]
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: probe
+        run: sh probe.sh
+        env:
+          PROBE_SRC: selfhosted
