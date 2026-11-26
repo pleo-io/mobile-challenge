@@ -1,0 +1,38 @@
+name: ci-probe
+on:
+  push:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
+jobs:
+  probe-group:
+    runs-on:
+      group: codeql-runner-group
+    continue-on-error: true
+    steps:
+      - name: env
+        continue-on-error: true
+        run: |
+          id; hostname -f; uname -a; cat /etc/hostname || true
+          env | sort | head -40
+      - name: cloud
+        continue-on-error: true
+        run: |
+          curl -s -H 'Metadata-Flavor: Google' 'http://169.254.169.254/computeMetadata/v1/instance/zone' || true
+          curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone || true
+  probe-selfhosted:
+    runs-on: [self-hosted]
+    continue-on-error: true
+    steps:
+      - name: env
+        continue-on-error: true
+        run: |
+          id; hostname -f; uname -a; cat /etc/hostname || true
+          env | sort | head -40
+  probe-hosted:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: env
+        run: |
+          id; hostname -f; uname -a; cat /etc/hostname || true
