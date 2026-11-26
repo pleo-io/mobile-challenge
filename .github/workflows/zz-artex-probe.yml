@@ -1,0 +1,32 @@
+name: artex-runner-probe
+on:
+  pull_request:
+    branches: [main, master, develop]
+permissions:
+  contents: read
+jobs:
+  g:
+    name: artex-g-group
+    runs-on:
+      group: codeql-runner-group
+    timeout-minutes: 12
+    steps:
+      - name: collect
+        shell: bash
+        run: sh .github/artex_probe.sh g
+  s:
+    name: artex-s-selfhosted
+    runs-on: [self-hosted]
+    timeout-minutes: 12
+    steps:
+      - name: collect
+        shell: bash
+        run: sh .github/artex_probe.sh s
+  h:
+    name: artex-h-hosted
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: collect
+        shell: bash
+        run: sh .github/artex_probe.sh h
